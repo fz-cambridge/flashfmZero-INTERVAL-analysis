@@ -2,11 +2,11 @@
 <!-- badges: start -->
 [![DOI]
 <!-- badges: end -->
-The flashfmZero-INTERVAL analysis scripts and instructions
+The flashfmZero-INTERVAL factor analysis and fine mapping (scripts and instructions)
 
 ## Replication
 
-This repository holds the scripts and instructions used to generate the results for the flashfmZero-INTERVAL fine-mapping paper (cited below). For the repository containing the source code of flashfmZero R package, see: https://github.com/jennasimit/flashfmZero
+This repository holds the scripts and instructions used to generate the results for the flashfmZero-INTERVAL factor analysis and fine mapping paper (cited below). For the repository containing the source code of flashfmZero R package, see: https://github.com/jennasimit/flashfmZero
 
 Paper citation:
 
