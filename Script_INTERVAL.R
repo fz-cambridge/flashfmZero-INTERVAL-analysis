@@ -27,7 +27,6 @@
 # [^1]: https://www.donorhealth-btru.nihr.ac.uk/studies/interval-study/
 # [^2]: Astle, W.J., et al. (2016). The Allelic Landscape of Human Blood Cell Trait Variation and Links to Common Complex Disease. Cell 167, 1415–1429.e19.
 # [^3]: Akbari, P., et al. (2023). A genome-wide association study of blood cell morphology identifies cellular proteins implicated in disease aetiology. Nat. Commun. 14, 5023.
-# [^4]: Vuckovic, D., et al. (2020). The Polygenic and Monogenic Basis of Blood Traits and Diseases. Cell 182, 1214–1231.e11.
 
 
 ##Stage_1: Factor Analysis and Inverse Normal Transformation----
