@@ -375,9 +375,8 @@ if(length(gwas.list.interval.raw99)==1){
 if(length(gwas.list.interval.raw99)>1){
   multiJAMd.out.raw99 <- multiJAMd(gwas.list.interval.raw99,  corX, N=18310, save.path,
                                    maxcv = 1, maxcv_stop = 20, jam.nM.iter =5, r2.minmerge=0.8, minsnpmppi = 0.01,
-                                   #NCORES=min(6,length(gwas.list.interval.raw99))
-                                   NCORES=1
-  ) 
+                                   #NCORES=length(gwas.list.interval.raw99) #if running on the hpc
+                                   NCORES=1) 
   multiJAMd.CSraw99  <- multiJAMdCS(multiJAMd.out.raw99, cred = 0.99)
 }else{
   multiJAMd.out.raw99 <- 0
@@ -395,6 +394,7 @@ if(length(gwas.list.interval.fa25)>1){
                                                      save.path, 
                                                      TOdds = 1,
                                                      cpp = 0.99, 
+                                                     #NCORES=length(gwas.list.interval.fa25), #if running on the hpc
                                                      NCORES = 1,
                                                      maxcv = 1, 
                                                      maxcv_stop = 20, 
