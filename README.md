@@ -12,10 +12,9 @@ Paper citation:
 
 > *Improved fine-mapping resolution of high-dimensional traits through multivariate analyses of latent factors* <br />
 > F Zhou, WJ Astle, AS Butterworth, JL Asimit <br />
-> The preprint and its supplementary material can be found in *bioRxiv* <br />
+> The preprint and its supplemental material can be found in *bioRxiv* <br />
 > doi: https://...
 
-For more details, see the folder (INTERVAL_scripts/) and the paper (Methods and Supplementary Materials)
 
 ## Background
 Genome-wide association studies (GWAS) of high-dimensional traits, such as molecular phenotypes or imaging parameters, are becoming increasingly common. Often such traits are biologically related and have shared genetic association signals. Factor analysis provides a way to estimate a smaller number of latent factors underlying many original traits. GWAS of latent factors are more scalable for multi-trait approaches and can capture biological mechanisms generating variation in high-dimensional traits parsimoniously. Here, we introduce a zero-correlation multi-trait fine-mapping approach, flashfmZero, for any number of latent factors. In our application to 25 statistically uncorrelated, yet biologically related latent factors derived from 99 blood cell traits in the INTERVAL cohort[^1], we show how GWAS of latent factors enables detection of signals that have sub-threshold associations with several blood cell traits. Fine-mapping of latent factors  reduced the size of credible sets compared to blood cell traits. These analysis techniques ease interpretation of results from many traits and highlight common underlying factors amongst them.
