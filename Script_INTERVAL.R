@@ -6,7 +6,7 @@
 #factor analysis and fine mapping:
 
 ## Overview of the whole process
-# - Step_1: collect and combine the 99 blood cell traits in the INTERVAL cohort of UK blood donors [^1][^2][^3];
+# - Step_1: collect and combine the 99 (raw) blood cell traits in the INTERVAL cohort of UK blood donors [^1][^2][^3];
 # - Step_2: delete the rows/individuals of sample with missing values (so the sample size is reduced to 18k);
 # - Step_3: (important) the reduced-size 99 blood cell traits are normalised again;
 # - Step_4: run factor analysis (FA) based on reduced-size 99 normalised blood cell traits; 
@@ -82,7 +82,7 @@ for (i in 1:length(Pyload_FA25$ML1)){Pyload_FA25$cell_type[i] = raw_trait_names$
 # The following dataset combines 25 FA latent factors and 99 blood cell traits, as well as PCs and the Clinic column for BOLT-LMM
 # Some columns with individual ids cannot be shared publicly (so keep the dataset in private)
 Data2018_add_fa_18310_all99traits_normalised <- read.delim("Data2018_add_fa_18310_all99traits_normalised.txt")
-# Columns are: FID, IID, missing, PC.1-10, clinic, 25 FA latent traits and 99 raw traits (18,310 individual ids)
+# Columns are: FID, IID, missing, PC.1-10, clinic, 25 FA latent factors and 99 blood cell traits (18,310 individual ids)
 
 
 ##Stage_2: BOLT-LMM and Conditional Analyses----
@@ -318,7 +318,7 @@ summary(abs(rafqc-gwas.list.interval.raw99[[1]]$EAF))
 #                      jam.nM.iter =1, maxcv = 1, maxcv_stop = 20,
 #                       min.mppi = 0.01, r2.minmerge = 0.8)
 
-#FLASHFM0withJAMd - use for multiple latent traits
+#FLASHFM0withJAMd - use for multiple latent factors
 save.path="./results/tmpDIR"
 
 #delete traits with no signals
@@ -351,9 +351,9 @@ if(is.null(id_nosignal)){
 
 
 
-# use this function for one latent trait or one raw trait
+# use this function for one latent factor or one blood cell trait
 if(length(gwas.list.interval.fa25)==1){
-  # use this function for one latent trait or one raw trait
+  # use this function for one latent factor or one blood cell trait
   JAMdwithGroups.out.fa25.single <- JAMdwithGroups(gwas.list.interval.fa25[[1]], N=18310, corX, cred = 0.99,
                                                    jam.nM.iter =5, maxcv = 1, maxcv_stop = 20, 
                                                    min.mppi = 0.01, r2.minmerge = 0.8)
@@ -362,7 +362,7 @@ if(length(gwas.list.interval.fa25)==1){
 }
 
 if(length(gwas.list.interval.raw99)==1){
-  # use this function for one latent trait or one raw trait
+  # use this function for one latent factor or one blood cell trait
   JAMdwithGroups.out.raw99.single <- JAMdwithGroups(gwas.list.interval.raw99[[1]], N=18310, corX, cred = 0.99,
                                                     jam.nM.iter =5, maxcv = 1, maxcv_stop = 20, 
                                                     min.mppi = 0.01, r2.minmerge = 0.8)
@@ -371,7 +371,7 @@ if(length(gwas.list.interval.raw99)==1){
 }
 
 
-# JAM on multiple raw traits 
+# JAM on multiple blood cell traits 
 if(length(gwas.list.interval.raw99)>1){
   multiJAMd.out.raw99 <- multiJAMd(gwas.list.interval.raw99,  corX, N=18310, save.path,
                                    maxcv = 1, maxcv_stop = 20, jam.nM.iter =5, r2.minmerge=0.8, minsnpmppi = 0.01,
@@ -387,7 +387,7 @@ if(length(gwas.list.interval.raw99)>1){
 
 
 
-# multiple latent traits
+# multiple latent factors
 if(length(gwas.list.interval.fa25)>1){
   FLASHFM0withJAMd.mt0g1.fa25 <- FLASHFMZEROwithJAMd(gwas.list.interval.fa25, 
                                                      corX, 
