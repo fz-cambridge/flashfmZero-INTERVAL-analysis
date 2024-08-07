@@ -20,19 +20,19 @@ Paper citation:
 Genome-wide association studies (GWAS) of high-dimensional traits, such as molecular phenotypes or imaging parameters, are becoming increasingly common. Often such traits are biologically related and have shared genetic association signals. Factor analysis provides a way to estimate a smaller number of latent factors underlying many original traits. GWAS of latent factors are more scalable for multi-trait approaches and can capture biological mechanisms generating variation in high-dimensional traits parsimoniously. Here, we introduce a zero-correlation multi-trait fine-mapping approach, flashfmZero, for any number of latent factors. In our application to 25 statistically uncorrelated, yet biologically related latent factors derived from 99 blood cell traits in the INTERVAL cohort of UK blood donors[^1][^2][^3] and cross-checking the results of our analysis with the UK Biobank fine-mapping results[^4], we show how GWAS of latent factors enables detection of signals that have sub-threshold associations with several blood cell traits. Fine-mapping of latent factors  reduced the size of credible sets compared to blood cell traits. These analysis techniques ease interpretation of results from many traits and highlight common underlying factors amongst them.
 
 The *Script_INTERVAL.R:* describes the whole process of the main analysis in more detailed steps and provides the R codes for running factor analysis and fine mapping:
-- Step_1: collect and combine the 99 blood cell traits from [^2][^3];
+- Step_1: collect and combine the 99 blood cell traits [^2][^3];
 - Step_2: delete the rows/individuals of sample with missing values (so the sample size is reduced to 18k);
 - Step_3: (important) the reduced-size 99 blood cell traits are normalised again;
 - Step_4: run factor analysis (FA) based on reduced-size 99 normalised blood cell traits; 
 - Step_5: get the optimal 25 FA latent factors with a matrix contains all loadings of 99 blood cell traits;
 - Step_6: (optional) the 25 FA latent factors are also normalised but the effect/impact is small;
 - Step_7: link all 99 blood cell traits with the 25 FA latent factors and create a network/connection visualization;
-- Step_8: re-use BOLT-LMM GWAS of full-size 99 blood cell traits from [^2][^3];
+- Step_8: re-use BOLT-LMM GWAS of full-size 99 blood cell traits [^2][^3];
 - Step_9: run BOLT-LMM to get GWAS of reduced-size 99 blood cell traits and 25 latent factors; 
 - Step_10: compare GWAS signals between different blood cell traits and latent factors;
 - Step_11: check the (combination of) strengths and regions of GWAS signals;
 - Step_12: check correlations of genotypes between GWAS significant SNPs;
-- Step_13: implement conditional analyses by adding lead SNPs (from [^2][^3]) into BOLT-LMM regressions;
+- Step_13: implement conditional analyses by adding lead SNPs ([^2][^3]) into BOLT-LMM regressions;
 - Step_14: detect novel SNPs based on FA in comparison with blood cell traits (both full-size 43k and the reduced-size 18k samples);
 - Step_15: use VEP (build 37) and connections of latent factors with blood cell traits to better understand novelty;
 - Step_16: select regions for fine-mapping based on both FA latent factors and blood cell traits, compare the results.
