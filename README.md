@@ -6,9 +6,7 @@ The flashfmZero-INTERVAL analysis scripts and instructions
 
 ## Replication
 
-This repository holds the scripts and instructions used to generate the results for the flashfmZero-INTERVAL fine-mapping paper (cited below). 
-
-For the repository containing the source code of flashfmZero R package, see: https://github.com/jennasimit/flashfmZero
+This repository holds the scripts and instructions used to generate the results for the flashfmZero-INTERVAL fine-mapping paper (cited below). For the repository containing the source code of flashfmZero R package, see: https://github.com/jennasimit/flashfmZero
 
 Paper citation:
 
@@ -25,7 +23,7 @@ Genome-wide association studies (GWAS) of high-dimensional traits, such as molec
 To illustrate the performance of latent factor GWAS and single/multiple latent factor fine-mapping compared to original raw trait GWAS and fine-mapping, we focus on 99 blood cell traits measured in the INTERVAL cohort of UK blood donors[^2][^3], cross-checking the results of our analysis with the UK Biobank fine-mapping results[^4]. We show that, fine-mapping based on latent factor association signals enables improved resolution over fine-mapping the original blood cell trait association signals, with further gains through multi-trait fine-mapping of the latent factors by flashfmZero.
 
 The *R_script_INTERVAL.R:* describes the whole process of the main analysis:
-- Step_1: collect and combine the 99 adjusted/normalised blood cell traits from two published papers[^2][^3];
+- Step_1: collect and combine the 99 blood cell traits from [^2][^3];
 - Step_2: delete the rows of sample with missing values (so the sample size is reduced to 18k);
 - Step_3: (important) the size-reduced 99 blood cell traits are normalised again;
 - Step_4: run factor analyses (FA) based on size-reduced 99 normalised blood cell traits; 
