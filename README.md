@@ -1,6 +1,6 @@
 # flashfmZero-INTERVAL-analysis
 <!-- badges: start -->
-[![DOI](https://zenodo.org/badge/639824830.svg)](https://zenodo.org/doi/10.5281/zenodo.10034535)
+[![DOI]
 <!-- badges: end -->
 The flashfmZero-INTERVAL analysis scripts and instructions
 
