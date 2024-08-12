@@ -1,5 +1,5 @@
 #R script for the whole process of INTERVAL factor analysis and fine mapping paper (public version)
-#Version: date20240807
+#Version: date20240811
 
 ## Background
 #The *Script_INTERVAL.R:* describes the whole process of the main analysis in more detailed steps and provides the R codes for running 
@@ -11,7 +11,7 @@
 # - Step_3: the reduced-size 99 blood cell traits are normalised using inverse-normal rank transformation;
 # - Step_4: run factor analysis (FA) based on reduced-size 99 normalised blood cell traits; 
 # - Step_5: get the optimal 25 FA latent factors with a matrix contains all loadings of 99 blood cell traits;
-# - Step_6:  use inverse normal rank transformation for each of the 25 latent factors;
+# - Step_6: use inverse normal rank transformation for each of the 25 latent factors;
 # - Step_7: link all 99 blood cell traits with the 25 FA latent factors and create a network/connection visualization;
 # - Step_8: re-use BOLT-LMM GWAS of full-size 99 blood cell traits [^2][^3];
 # - Step_9: run BOLT-LMM to get GWAS of reduced-size 99 blood cell traits and 25 latent factors; 
