@@ -8,10 +8,10 @@
 ## Overview of the whole process
 # - Step_1: collect and combine the 99 (raw) blood cell traits in the INTERVAL cohort of UK blood donors [^1][^2][^3];
 # - Step_2: delete the rows/individuals of sample with missing values (so the sample size is reduced to 18k);
-# - Step_3: (important) the reduced-size 99 blood cell traits are normalised again;
+# - Step_3: the reduced-size 99 blood cell traits are normalised using inverse-normal rank transformation;
 # - Step_4: run factor analysis (FA) based on reduced-size 99 normalised blood cell traits; 
 # - Step_5: get the optimal 25 FA latent factors with a matrix contains all loadings of 99 blood cell traits;
-# - Step_6: (optional) the 25 FA latent factors are also normalised but the effect/impact is small;
+# - Step_6:  use inverse normal rank transformation for each of the 25 latent factors;
 # - Step_7: link all 99 blood cell traits with the 25 FA latent factors and create a network/connection visualization;
 # - Step_8: re-use BOLT-LMM GWAS of full-size 99 blood cell traits [^2][^3];
 # - Step_9: run BOLT-LMM to get GWAS of reduced-size 99 blood cell traits and 25 latent factors; 
@@ -51,13 +51,13 @@ colnames(data_raw_99trait_all) = gsub("_gwas_normalised", "", colnames(data_raw_
 # Step_2: delete the rows/individuals of sample with missing values (so the sample size is reduced to 18k);
 data_raw_99trait_all_18k = data_raw_99trait_all[complete.cases(data_raw_99trait_all), ]
 
-# Step_3: (important) the reduced-size 99 blood cell traits are normalised again;
+# Step_3: use inverse normal rank transformation on each of the 99 blood cell traits;
 data_raw_99trait_all_18k_normalised = data_raw_99trait_all_18k
 for(i in 2:100){
   data_raw_99trait_all_18k_normalised[,i] <- RankNorm(data_raw_99trait_all_18k[,i])
 }
 
-# Step_4: run factor analysis (FA) based on reduced-size 99 normalised blood cell traits; 
+# Step_4: run factor analysis (FA) with varimax rotation on reduced-size 99 normal-transformed blood cell traits; 
 # Step_5: get the optimal 25 FA latent factors with a matrix contains all loadings of 99 blood cell traits;
 # Step_6: (optional) the 25 FA latent factors are also normalised but the effect/impact is small;
 #library(psych)
@@ -65,7 +65,7 @@ yk = data_raw_99trait_all_18k_normalised[,-1]
 #prop.fn <- function(x) abs(x)/sum(abs(x)) #check
 prop.fn <- function(x) x^2/sum(x^2)
 yz <- apply(yk,2,function(x) (x-mean(x,na.rm=T))/sqrt(var(x,na.rm=T)))
-fa.parallel(yz,fm="ml")       #fm="ml" will do a maximum likelihood factor analysis
+fa.parallel(yz,fm="ml")       #fm="ml" will do a maximum likelihood factor analysis; scree plot suggests selecting 25 latent factors
 faY <- fa(r=yz, nfactors=25, fm="ml",rotate="varimax")
 fYstar <- faY$scores
 fYstar_df <- as.data.frame(fYstar)
@@ -80,7 +80,6 @@ for (i in 1:length(Pyload_FA25$ML1)){Pyload_FA25$cell_type[i] = raw_trait_names$
 
 # Step_7: link all 99 blood cell traits with the 25 FA latent factors and create a network/connection visualization;
 # The following dataset combines 25 FA latent factors and 99 blood cell traits, as well as PCs and the Clinic column for BOLT-LMM
-# Some columns with individual ids cannot be shared publicly (so keep the dataset in private)
 Data2018_add_fa_18310_all99traits_normalised <- read.delim("Data2018_add_fa_18310_all99traits_normalised.txt")
 # Columns are: FID, IID, missing, PC.1-10, clinic, 25 FA latent factors and 99 blood cell traits (18,310 individual ids)
 
@@ -271,15 +270,6 @@ Xqc <- apply(X,2,qc,theta=0.2,BestGuess=TRUE)
 
 Nprop <- apply(Xqc,2,function(x) sum(!is.na(x)))/nrow(Xqc)
 keep <- which(Nprop >= 0.80)
-### using theta=0.1, bg=TRUE:
-# 2591 variants retained reg 239
-#> summary(GWAS_list_raw99[[1]][keep,"INFO"])
-#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-# 0.4283  0.9026  0.9616  0.9263  0.9822  1.0000 
-#> 
-#> summary(GWAS_list_raw99[[1]][-keep,"INFO"])
-#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-# 0.5472  0.7281  0.8331  0.7904  0.8679  0.8983 
 
 Xqc <- Xqc[,keep]
 
@@ -304,19 +294,8 @@ summary(abs(rafqc-gwas.list.interval.raw99[[1]]$EAF))
 #     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 #0.000e+00 1.174e-07 2.458e-07 2.742e-07 4.042e-07 1.398e-06 
 
-#ldout <- bigcor(X, size=min(2000,ncol(X)), verbose=FALSE,fun= "cor", use="p" )
-#corX <- as.matrix(ldout[1:dim(ldout)[1],1:dim(ldout)[1]])
-#rownames(corX) <- colnames(corX) <- names(raf)
 
 
-#snpinfoFM <- snpinfo[,c("snp_id","BETA","A1FREQ")]
-#colnames(snpinfoFM) <- c("rsID","beta","EAF")
-#rownames(snpinfoFM) <- snpinfoFM$rsID
-#rownames(corX) <- colnames(corX) <- rownames(snpinfoFM)
-
-#out.raw99 <- JAMdwithGroups(snpinfoFM, N=18310, corX, cred = 0.99,
-#                      jam.nM.iter =1, maxcv = 1, maxcv_stop = 20,
-#                       min.mppi = 0.01, r2.minmerge = 0.8)
 
 #FLASHFM0withJAMd - use for multiple latent factors
 save.path="./results/tmpDIR"
@@ -353,7 +332,7 @@ if(is.null(id_nosignal)){
 
 # use this function for one latent factor or one blood cell trait
 if(length(gwas.list.interval.fa25)==1){
-  # use this function for one latent factor or one blood cell trait
+  # for one latent factor 
   JAMdwithGroups.out.fa25.single <- JAMdwithGroups(gwas.list.interval.fa25[[1]], N=18310, corX, cred = 0.99,
                                                    jam.nM.iter =5, maxcv = 1, maxcv_stop = 20, 
                                                    min.mppi = 0.01, r2.minmerge = 0.8)
@@ -362,7 +341,7 @@ if(length(gwas.list.interval.fa25)==1){
 }
 
 if(length(gwas.list.interval.raw99)==1){
-  # use this function for one latent factor or one blood cell trait
+  #  for one blood cell trait
   JAMdwithGroups.out.raw99.single <- JAMdwithGroups(gwas.list.interval.raw99[[1]], N=18310, corX, cred = 0.99,
                                                     jam.nM.iter =5, maxcv = 1, maxcv_stop = 20, 
                                                     min.mppi = 0.01, r2.minmerge = 0.8)
@@ -386,7 +365,7 @@ if(length(gwas.list.interval.raw99)>1){
 
 
 
-# multiple latent factors
+# multiple latent factors flashfmZero
 if(length(gwas.list.interval.fa25)>1){
   FLASHFM0withJAMd.mt0g1.fa25 <- FLASHFMZEROwithJAMd(gwas.list.interval.fa25, 
                                                      corX, 
