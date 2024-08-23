@@ -1,7 +1,5 @@
 # flashfmZero-INTERVAL-analysis
-<!-- badges: start -->
-[![DOI]
-<!-- badges: end -->
+
 The flashfmZero-INTERVAL factor analysis and fine mapping (scripts and instructions)
 
 ## Replication
