@@ -8,7 +8,7 @@ This repository holds the scripts and instructions used to generate the results 
 
 Paper citation:
 
-> *Improved genetic discovery and fine-mapping resolution of high-dimensional traits through multivariate analyses of latent factors* <br />
+> *Improved genetic discovery and fine-mapping resolution through multivariate latent factor analysis of high-dimensional traits* <br />
 > F Zhou, WJ Astle, AS Butterworth, JL Asimit <br />
 > The preprint and its supplemental material can be found in *bioRxiv* <br />
 
