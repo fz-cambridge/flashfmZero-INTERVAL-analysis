@@ -11,6 +11,7 @@ Paper citation:
 > *Improved genetic discovery and fine-mapping resolution through multivariate latent factor analysis of high-dimensional traits* <br />
 > F Zhou, WJ Astle, AS Butterworth, JL Asimit <br />
 > The preprint and its supplemental material can be found in *bioRxiv* <br />
+> https://doi.org/10.1101/2024.08.23.609452 <br />
 
 
 ## Background
