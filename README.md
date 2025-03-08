@@ -1,3 +1,6 @@
+<!-- badges: start -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14992774.svg)](https://doi.org/10.5281/zenodo.14992774)
+<!-- badges: end -->
 # flashfmZero-INTERVAL-analysis
 
 The flashfmZero-INTERVAL factor analysis and fine mapping (scripts and instructions)
